@@ -18,7 +18,7 @@ add some start page url to enable spiders.
 
 after the master run. now, you can start one or more slave to do the information collection. You should
 know, the slave will spiders a whole website before it response to master. so if you want to start servel
-slave at the first time. Please be sure there are enough start url in master's `w_file`.
+slave at the first time. Please be sure there are enough start url in master's "w_file".
 
 you can start slave by:
 <p align="center">python salve.py</p>
