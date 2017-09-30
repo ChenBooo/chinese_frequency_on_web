@@ -1,3 +1,4 @@
 {
-    "serve": "localhost:5555"
+    "serve": "localhost:5555",
+    "threads": 10
 }

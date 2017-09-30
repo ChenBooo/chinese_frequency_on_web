@@ -23,6 +23,8 @@ slave at the first time. Please be sure there are enough start url in master's "
 you can start slave by:
 <p align="center">python salve.py</p>
 
+When you got some data, they saved in s_file, w_file and c_file. You can stop and restart anytime you want. and you will be able to continue you work as long as your s_file, w_file and c_file are fine.
+
 Whole project build on Python3.5, so it can't run on python2.X.
 
 And there are also some useful tools help to display the result we get.

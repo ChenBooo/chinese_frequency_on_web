@@ -113,7 +113,7 @@ def spider(q, id_):
                 myq.put(c)
 
 
-def start_spider(url):
+def start_spider(url, thread_number):
     """启动爬虫
     输入：信息保持文件名
     """
@@ -121,7 +121,6 @@ def start_spider(url):
 
     threads = []
     queue_pool = []
-    thread_number = 10
     
     for i in range(thread_number):
         q = queue.Queue()
@@ -160,13 +159,19 @@ def main():
     global WEB, DIC, OUT
     global TRY_TIME_INTERVAL_S
     global TRY_MAX_BEFROE_QUIT
+
+    with open("cfg.json") as fp:
+        config = json.load(fp)
     
+    serve = config["serve"]
+    thread_number = config["threads"]
+
     context = zmq.Context()
 
     #  Socket to talk to server
     print("Connecting to frequency server…")
     socket = context.socket(zmq.REQ)
-    socket.connect("tcp://localhost:5555")
+    socket.connect("tcp://" + serve)
 
     send = {}
     try_max = TRY_MAX_BEFROE_QUIT
@@ -188,7 +193,7 @@ def main():
         web_url = message["web_url"]
         WEB = urlparse(web_url.rstrip("/"))
 
-        start_spider(web_url)
+        start_spider(web_url, thread_number)
         send = {"web_url": web_url, "freq_dict": DIC, "find_webs": list(OUT)}
 
 
