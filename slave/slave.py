@@ -141,7 +141,15 @@ def start_spider(url):
 
     print("process spend {0} seconds.".format(time.time() - start_time))
 
+def init():
+    global WEB, DIC, OUT
+    global searched
 
+    WEB = None
+    DIC.clear()
+    OUT.clear()
+    searched.clear()
+    
 #
 #   Hello World client in Python
 #   Connects REQ socket to tcp://localhost:5555
@@ -164,6 +172,8 @@ def main():
     try_max = TRY_MAX_BEFROE_QUIT
 
     while True:
+        init()
+        
         socket.send_json(send)
         message = socket.recv_json()
         print("receive message %s …" % message)
@@ -180,7 +190,9 @@ def main():
         WEB = urlparse(web_url.rstrip("/"))
 
         start_spider(web_url)
-        send = {"web_url": web_url, "freq_dict": DIC, "find_webs": list(OUT)}   
+        send = {"web_url": web_url, "freq_dict": DIC, "find_webs": list(OUT)}
+
+
 
 if __name__ == "__main__":
     main()
