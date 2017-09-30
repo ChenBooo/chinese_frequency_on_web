@@ -1,0 +1,6 @@
+{
+    "c_file": "chinese_frequency_data.txt",
+    "s_file": "searched_url.txt",
+    "w_file": "wait_search_url.txt",
+    "port": 5555
+}
