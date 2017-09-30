@@ -172,12 +172,10 @@ def main():
     try_max = TRY_MAX_BEFROE_QUIT
 
     while True:
-        init()
-        
         socket.send_json(send)
         message = socket.recv_json()
         print("receive message %s …" % message)
-        if "web_url" not in message or message["web_url"] is None:
+        if message.get("web_url") is None:
             time.sleep(TRY_TIME_INTERVAL_S)
             try_max -= 1
             if try_max < 0:
@@ -185,7 +183,8 @@ def main():
                 break
             else:
                 continue
-
+        init()
+        
         web_url = message["web_url"]
         WEB = urlparse(web_url.rstrip("/"))
 
