@@ -4,7 +4,7 @@ The project is to count the probability that each Chinese character appears on t
 Init environment:
 
 You can run master and slave on different host. So I seperate master and slave requirments.txt each.
-just run 
+just run<br> 
         pip install -r requirments.txt 
 to build the run environment.
 
