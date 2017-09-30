@@ -6,9 +6,9 @@ import json
 import queue
 import threading
 from bs4 import BeautifulSoup
-from urllib.parse import urlparse
 from urllib.request import urlopen
 from collections import defaultdict
+from urllib.parse import urlparse, quote
 
 
 WEB = None
@@ -63,10 +63,11 @@ def get_page_info(url):
 
     try:
         html = urlopen(url)
-        bsObj = BeautifulSoup(html, "html.parser")
-    except Exception as e:
-        print("open {0} {1}".format(url, e))
-        return None
+    except UnicodeEncodeError:
+        url = quote(url, safe='/:?=.')
+        html = urlopen(url)
+
+    bsObj = BeautifulSoup(html, "html.parser")
 
     words = get_page_chinese(bsObj)
 
@@ -106,7 +107,10 @@ def spider(q, id_):
         if url is None:
             break
 
-        child = get_page_info(url)
+        try:
+            child = get_page_info(url)
+        except Exception as e:
+            print("get page info", e)
 
         if child is not None:
             for c in child:
