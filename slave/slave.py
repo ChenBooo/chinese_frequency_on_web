@@ -111,6 +111,7 @@ def spider(q, id_):
             child = get_page_info(url)
         except Exception as e:
             print(url, "get page info", e)
+   	    continue
 
         if child is not None:
             for c in child:
